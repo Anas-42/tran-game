@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Classic Tic Tac Toe</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1 id="game-title">Classic Tic Tac Toe</h1>
+  <p id="status">Current Player: X</p>
+  <div class="board"></div>
+
+  <div class="button-container">
+    <button id="reset" class="game-button">Reset Game</button>
+    <button id="main-menu" class="game-button">Back to Menu</button>
+  </div>
+
+  <div id="winMessage" class="win-message"></div>
+
+  <script>
+    const board = Array(3).fill().map(() => Array(3).fill(null));
+    let currentPlayer = 'X';
+    let gameEnded = false;
+    let gameMode = '2players'; // Default mode
+
+    // Get game mode from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('mode')) {
+      gameMode = urlParams.get('mode');
+      document.getElementById('game-title').textContent = 
+        gameMode === '1player' ? 'Classic Tic Tac Toe (vs AI)' : 'Classic Tic Tac Toe (2 Players)';
+    }
+
+    function createBoard() {
+      const boardElement = document.querySelector(".board");
+      boardElement.innerHTML = "";
+      for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 3; col++) {
+          const cell = document.createElement("div");
+          cell.classList.add("cell");
+          cell.dataset.row = row;
+          cell.dataset.col = col;
+          cell.addEventListener("click", () => makeMove(row, col, cell));
+          boardElement.appendChild(cell);
+        }
+      }
+    }
+
+    function makeMove(row, col, cell) {
+      if (board[row][col] !== null || gameEnded) return;
+
+      board[row][col] = currentPlayer;
+      cell.textContent = currentPlayer;
+      cell.classList.add(currentPlayer);
+
+      if (checkWin(currentPlayer)) {
+        gameEnded = true;
+        showWinMessage(currentPlayer);
+        return;
+      }
+
+      if (checkDraw()) {
+        gameEnded = true;
+        showWinMessage("draw");
+        return;
+      }
+
+      // Switch turns
+      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+      document.getElementById("status").textContent = `Current Player: ${currentPlayer}`;
+
+      // If in 1-player mode and it's AI's turn (O), make AI move
+      if (gameMode === '1player' && currentPlayer === 'O' && !gameEnded) {
+        setTimeout(makeAIMove, 500);
+      }
+    }
+
+    function makeAIMove() {
+      if (gameEnded) return;
+
+      // Try to win first
+      for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 3; col++) {
+          if (board[row][col] === null) {
+            board[row][col] = 'O';
+            if (checkWin('O')) {
+              completeAIMove(row, col);
+              return;
+            }
+            board[row][col] = null;
+          }
+        }
+      }
+
+      // Block player from winning
+      for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 3; col++) {
+          if (board[row][col] === null) {
+            board[row][col] = 'X';
+            if (checkWin('X')) {
+              board[row][col] = 'O';
+              completeAIMove(row, col);
+              return;
+            }
+            board[row][col] = null;
+          }
+        }
+      }
+
+      // Take center if available
+      if (board[1][1] === null) {
+        completeAIMove(1, 1);
+        return;
+      }
+
+      // Take a random available spot
+      const emptyCells = [];
+      for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 3; col++) {
+          if (board[row][col] === null) {
+            emptyCells.push({ row, col });
+          }
+        }
+      }
+
+      if (emptyCells.length > 0) {
+        const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+        completeAIMove(randomCell.row, randomCell.col);
+      }
+    }
+
+    function completeAIMove(row, col) {
+      board[row][col] = 'O';
+      const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+      cell.textContent = 'O';
+      cell.classList.add('O');
+
+      if (checkWin('O')) {
+        gameEnded = true;
+        showWinMessage('O');
+        return;
+      }
+
+      if (checkDraw()) {
+        gameEnded = true;
+        showWinMessage("draw");
+        return;
+      }
+
+      currentPlayer = 'X';
+      document.getElementById("status").textContent = `Current Player: ${currentPlayer}`;
+    }
+
+    function checkWin(player) {
+      // Check rows
+      for (let row = 0; row < 3; row++) {
+        if (board[row][0] === player && board[row][1] === player && board[row][2] === player) {
+          return true;
+        }
+      }
+
+      // Check columns
+      for (let col = 0; col < 3; col++) {
+        if (board[0][col] === player && board[1][col] === player && board[2][col] === player) {
+          return true;
+        }
+      }
+
+      // Check diagonals
+      if (board[0][0] === player && board[1][1] === player && board[2][2] === player) {
+        return true;
+      }
+      if (board[0][2] === player && board[1][1] === player && board[2][0] === player) {
+        return true;
+      }
+
+      return false;
+    }
+
+    function checkDraw() {
+      return board.flat().every(cell => cell !== null);
+    }
+
+    function showWinMessage(result) {
+      const winMessage = document.getElementById("winMessage");
+      if (result === "draw") {
+        winMessage.textContent = "It's a Draw!";
+      } else {
+        winMessage.textContent = `${result} wins!`;
+      }
+      winMessage.style.display = "block";
+      setTimeout(() => {
+        winMessage.style.display = "none";
+      }, 2000);
+    }
+
+    function resetBoard() {
+      board.forEach(row => row.fill(null));
+      currentPlayer = 'X';
+      gameEnded = false;
+      document.getElementById("status").textContent = "Current Player: X";
+      createBoard();
+    }
+
+    // Initialize the game
+    createBoard();
+    document.getElementById("reset").addEventListener("click", resetBoard);
+    document.getElementById("main-menu").addEventListener("click", () => {
+      window.location.href = "classic-tic-tac-toe-menu.html";
+    });
+  </script>
+</body>
+</html>

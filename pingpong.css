@@ -1,0 +1,183 @@
+body {
+	font-family: 'Poppins', sans-serif;
+	text-align: center;
+	background: linear-gradient(135deg, #2c3e50, #34495e); /* Dark blue gradient */
+	color: #ecf0f1; /* Light gray text */
+	margin: 0;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start; /* Align content to the top */
+	min-height: 100vh; /* Ensure the body takes at least the full viewport height */
+	/* overflow: hidden; Prevent scrolling */
+  }
+  
+  /* Game Title */
+  h1 {
+	font-size: 48px;
+	font-weight: bold;
+	color: #3498db; /* Bright blue */
+	margin-bottom: 20px;
+	text-shadow: 0 0 10px rgba(52, 152, 219, 0.5); /* Subtle glow */
+  }
+  
+  /* Score Display */
+  #score {
+	font-size: 28px;
+	margin-bottom: 20px;
+	color: #ecf0f1; /* Light gray */
+	font-weight: 500;
+  }
+  
+  /* Canvas Styling */
+  canvas {
+	display: block;
+	margin: 20px auto; /* Add margin to separate canvas from buttons */
+	background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+	border-radius: 10px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+  }
+  
+  /* Button Container */
+  .button-container {
+	display: flex;
+	gap: 20px;
+	margin-top: 20px; /* Space between canvas and buttons */
+	margin-bottom: 20px; /* Ensure buttons don't overflow */
+  }
+  
+  /* Game Buttons */
+  .game-button {
+	font-size: 20px;
+	padding: 12px 24px;
+	background: linear-gradient(45deg, #3498db, #2980b9); /* Blue gradient */
+	color: white;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	font-weight: bold;
+	box-shadow: 0 0 10px rgba(52, 152, 219, 0.4); /* Subtle glow */
+  }
+  
+  .game-button:hover {
+	background: linear-gradient(45deg, #2980b9, #3498db); /* Reverse gradient on hover */
+	transform: scale(1.05); /* Slight scale-up effect */
+	box-shadow: 0 0 20px rgba(52, 152, 219, 0.6); /* Stronger glow on hover */
+  }
+  
+  /* Winner Message Styling */
+  #winMessage {
+	position: fixed;
+	top: 50%; /* Centered vertically */
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 48px;
+	font-weight: bold;
+	color: #2ecc71; /* Bright green */
+	padding: 20px 40px;
+	border: 2px solid #2ecc71; /* Green border */
+	border-radius: 15px;
+	background: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+	z-index: 1000;
+	text-align: center;
+	animation: fadeIn 0.5s ease-in-out;
+	box-shadow: 0 0 20px rgba(46, 204, 113, 0.5); /* Subtle glow */
+  }
+  
+  /* Restart Button inside Winner Message */
+  #winMessage button {
+	font-size: 20px;
+	padding: 10px 20px;
+	background: linear-gradient(45deg, #2ecc71, #27ae60); /* Green gradient */
+	color: white;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	font-weight: bold;
+	box-shadow: 0 0 10px rgba(46, 204, 113, 0.4); /* Subtle glow */
+	margin-top: 20px;
+  }
+  
+  #winMessage button:hover {
+	background: linear-gradient(45deg, #27ae60, #2ecc71); /* Reverse gradient on hover */
+	transform: scale(1.05); /* Slight scale-up effect */
+	box-shadow: 0 0 20px rgba(46, 204, 113, 0.6); /* Stronger glow on hover */
+  }
+  
+  /* Fade-in Animation for Winner Message */
+  @keyframes fadeIn {
+	from { opacity: 0; transform: translate(-50%, -40%); }
+	to   { opacity: 1; transform: translate(-50%, -50%); }
+  }
+  
+  /* Menu Styling (Specific to Ping Pong Menu) */
+  .menu-container {
+	text-align: center;
+	animation: fadeIn 2s ease-in-out;
+  }
+  
+  .menu-container h1 {
+	font-size: 48px;
+	font-weight: bold;
+	color: #3498db; /* Bright blue */
+	margin-bottom: 20px;
+	text-shadow: 0 0 10px rgba(52, 152, 219, 0.5); /* Subtle glow */
+  }
+  
+  .menu-container .buttons {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	align-items: center;
+	margin-bottom: 20px; /* Space between buttons and "Back to Main Menu" */
+  }
+  
+  .menu-container .game-button {
+	font-size: 24px;
+	padding: 15px 30px;
+	background: linear-gradient(45deg, #3498db, #2980b9); /* Blue gradient */
+	color: white;
+	border: none;
+	border-radius: 10px;
+	transition: all 0.3s ease;
+	font-weight: bold;
+	box-shadow: 0 0 10px rgba(52, 152, 219, 0.4); /* Subtle glow */
+	cursor: pointer;
+	text-decoration: none; /* Remove underline for links */
+	display: inline-block; /* Ensure buttons behave like block elements */
+  }
+  
+  .menu-container .game-button:hover {
+	background: linear-gradient(45deg, #2980b9, #3498db); /* Reverse gradient on hover */
+	transform: scale(1.05); /* Slight scale-up effect */
+	box-shadow: 0 0 20px rgba(52, 152, 219, 0.6); /* Stronger glow on hover */
+  }
+  
+  .countdown-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.7);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 2000;
+  }
+  
+  .countdown {
+	font-size: 120px;
+	color: white;
+	text-shadow: 0 0 20px #3498db;
+	animation: pulse 1s infinite;
+  }
+  
+  @keyframes pulse {
+	0% { transform: scale(1); }
+	50% { transform: scale(1.2); }
+	100% { transform: scale(1); }
+  }

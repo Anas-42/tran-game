@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ping Pong</title>
+  <link rel="stylesheet" href="pingpong.css" />
+</head>
+<body>
+  <div class="countdown-overlay">
+    <div class="countdown">3</div>
+  </div>
+  <h1>Ping Pong</h1>
+  <p id="score">Player 1: 0 | Player 2: 0</p>
+  <canvas id="gameCanvas"></canvas>
+  <div class="button-container">
+    <button id="switch-back" class="game-button">Back to Tic Tac Toe</button>
+    <button id="main-menu" class="game-button">Back to Main Menu</button>
+  </div>
+
+  <script src="pingpong.js"></script>
+  <script>
+    document.getElementById("switch-back").addEventListener("click", function () {
+      window.location.href = "tic-tac-toe-menu.html";
+    });
+    document.getElementById("main-menu").addEventListener("click", function () {
+      window.location.href = "pingpong-menu.html";
+    });
+  </script>
+</body>
+</html>

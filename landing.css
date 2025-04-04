@@ -1,0 +1,68 @@
+/* General Body Styling */
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Poppins', sans-serif;
+	background: linear-gradient(135deg, #2c3e50, #34495e); /* Dark blue gradient */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	color: #ecf0f1; /* Light gray text */
+  }
+  
+  /* Container for Menu */
+  .container {
+	text-align: center;
+	animation: fadeIn 2s ease-in-out;
+  }
+  
+  /* Game Title */
+  .neon-title {
+	font-size: 60px;
+	font-weight: bold;
+	color: #3498db; /* Bright blue */
+	text-shadow: 0 0 10px rgba(52, 152, 219, 0.5); /* Subtle glow */
+	margin-bottom: 20px;
+  }
+  
+  /* Subtitle */
+  .subtitle {
+	font-size: 24px;
+	margin-bottom: 40px;
+	color: #ecf0f1; /* Light gray */
+  }
+  
+  /* Buttons */
+  .buttons {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	align-items: center;
+  }
+  
+  .game-button {
+	text-decoration: none;
+	font-size: 24px;
+	padding: 15px 30px;
+	background: linear-gradient(45deg, #3498db, #2980b9); /* Blue gradient */
+	color: white;
+	border: none;
+	border-radius: 10px;
+	transition: all 0.3s ease;
+	font-weight: bold;
+	box-shadow: 0 0 10px rgba(52, 152, 219, 0.4); /* Subtle glow */
+	cursor: pointer;
+  }
+  
+  .game-button:hover {
+	background: linear-gradient(45deg, #2980b9, #3498db); /* Reverse gradient on hover */
+	transform: scale(1.05); /* Slight scale-up effect */
+	box-shadow: 0 0 20px rgba(52, 152, 219, 0.6); /* Stronger glow on hover */
+  }
+  
+  /* Fade-in Animation */
+  @keyframes fadeIn {
+	0% { opacity: 0; transform: scale(0.9); }
+	100% { opacity: 1; transform: scale(1); }
+  }

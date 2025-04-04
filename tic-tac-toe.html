@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tic Tac Toe - Infinite Mode</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>Tic Tac Toe - Infinite Mode</h1>
+  <p id="status">Current Player: X</p>
+  <div class="board"></div>
+
+  <button id="reset" class="game-button">Reset Game</button>
+  <button id="main-menu" class="game-button">Back to Infinite Menu</button>
+
+  <div id="winMessage" class="win-message"></div>
+
+  <script src="script.js"></script>
+  <script>
+    document.getElementById("main-menu").addEventListener("click", function() {
+      window.location.href = "infinite-tic-tac-toe-menu.html";
+    });
+
+    // Get the mode from the query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get("mode");
+  
+    // Update the game title based on the mode
+    const title = document.querySelector("h1");
+    if (mode === "1player") {
+      title.textContent = "Tic Tac Toe - 1 Player Infinite Mode";
+    } else if (mode === "2players") {
+      title.textContent = "Tic Tac Toe - 2 Player Infinite Mode";
+    }
+  
+	// Add logic for 1-player mode (AI)
+	function makeAIMove() {
+	  if (mode === "1player" && currentPlayer === "O") {
+		let emptyCells = [];
+		for (let row = 0; row < 3; row++) {
+		  for (let col = 0; col < 3; col++) {
+			if (board[row][col] === null) {
+			  emptyCells.push({ row, col });
+			}
+		  }
+		}
+  
+		if (emptyCells.length > 0) {
+		  const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+		  const cell = document.querySelector(`[data-row="${randomCell.row}"][data-col="${randomCell.col}"]`);
+		  makeMove(randomCell.row, randomCell.col, cell);
+		}
+	  }
+	}
+  
+	// Modify the makeMove function to call AI move after player's move
+	const originalMakeMove = makeMove;
+	makeMove = function (row, col, cell) {
+	  originalMakeMove(row, col, cell);
+	  if (mode === "1player" && !checkWin(currentPlayer)) {
+		setTimeout(makeAIMove, 500); // AI makes a move after a short delay
+	  }
+	};
+  </script>
+</html>

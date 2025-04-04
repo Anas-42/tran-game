@@ -1,0 +1,158 @@
+/* General Body Styling */
+body {
+	font-family: 'Poppins', sans-serif;
+	text-align: center;
+	background: linear-gradient(135deg, #2c3e50, #34495e); /* Dark blue gradient */
+	color: #ecf0f1; /* Light gray text */
+	margin: 0;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+  }
+  
+  /* Game Title */
+  h1 {
+	font-size: 48px;
+	font-weight: bold;
+	color: #3498db; /* Bright blue */
+	margin-bottom: 20px;
+	text-shadow: 0 0 10px rgba(52, 152, 219, 0.5); /* Subtle glow */
+  }
+  
+  /* Status Message */
+  #status {
+	font-size: 24px;
+	color: #ecf0f1; /* Light gray */
+	margin-bottom: 20px;
+  }
+  
+  /* Game Board */
+  .board {
+	display: grid;
+	grid-template-columns: repeat(3, 100px);
+	grid-template-rows: repeat(3, 100px);
+	gap: 10px; /* Smaller gap for a cleaner look */
+	margin: 20px auto;
+	width: 340px; /* Adjusted for gap */
+  }
+  
+/* Cells */
+.cell {
+	width: 100px;
+	height: 100px;
+	background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+	font-size: 36px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 100px;
+	cursor: pointer;
+	transition: 0.3s;
+	color: #3498db; /* Bright blue for X */
+  }
+  
+  /* Blinking effect for marks that are about to disappear */
+.blinking {
+	animation: blink 0.8s infinite alternate;
+  }
+  
+  @keyframes blink {
+	from { opacity: 1; }
+	to   { opacity: 0.3; }
+  }
+  
+  /* Hover Effect for Cells */
+  .cell:hover {
+	background: rgba(255, 255, 255, 0.2); /* Slightly brighter on hover */
+	transform: scale(1.05); /* Slight scale-up effect */
+	box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); /* Stronger glow on hover */
+  }
+  
+  /* Colors for X and O marks */
+  .cell.X {
+	color: #3498db; /* Bright blue for X */
+	text-shadow: 0 0 10px rgba(52, 152, 219, 0.5); /* Subtle glow */
+  }
+  
+  .cell.O {
+	color: #e74c3c; /* Bright red for O */
+	text-shadow: 0 0 10px rgba(231, 76, 60, 0.5); /* Subtle glow */
+  }
+  
+/* Winning Message */
+.win-message {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 48px;
+	font-weight: bold;
+	color: #2ecc71; /* Bright green */
+	padding: 20px 40px;
+	border: 2px solid #2ecc71; /* Green border */
+	border-radius: 15px;
+	background: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+	z-index: 1000;
+	text-align: center;
+	animation: fadeIn 0.5s ease-in-out;
+	box-shadow: 0 0 20px rgba(46, 204, 113, 0.5); /* Subtle glow */
+	display: none; /* Hidden by default */
+  }
+  
+  /* Fade-in Animation for Winning Message */
+  @keyframes fadeIn {
+	from { opacity: 0; transform: translate(-50%, -40%); }
+	to   { opacity: 1; transform: translate(-50%, -50%); }
+  }
+  
+  /* Game Buttons */
+  .game-button {
+	font-size: 20px;
+	padding: 12px 24px;
+	background: linear-gradient(45deg, #3498db, #2980b9); /* Blue gradient */
+	color: white;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	font-weight: bold;
+	box-shadow: 0 0 10px rgba(52, 152, 219, 0.4); /* Subtle glow */
+	margin: 10px;
+	display: inline-block;
+	text-align: center;
+  }
+  
+  .game-button:hover {
+	background: linear-gradient(45deg, #2980b9, #3498db); /* Reverse gradient on hover */
+	transform: scale(1.05); /* Slight scale-up effect */
+	box-shadow: 0 0 20px rgba(52, 152, 219, 0.6); /* Stronger glow on hover */
+  }
+  /* Center the board and remove extra space */
+.board {
+	display: grid;
+	grid-template-columns: repeat(3, 100px);
+	grid-template-rows: repeat(3, 100px);
+	gap: 10px;
+	margin: 20px auto;
+	width: 340px; /* Adjusted for gap */
+	justify-content: center; /* Center the grid horizontally */
+  }
+  
+  /* Ensure the body takes full height and centers content */
+  body {
+	font-family: 'Poppins', sans-serif;
+	text-align: center;
+	background: linear-gradient(135deg, #2c3e50, #34495e);
+	color: #ecf0f1;
+	margin: 0;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh; /* Ensure the body takes at least the full viewport height */
+  }
